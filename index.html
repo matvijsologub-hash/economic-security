@@ -1,0 +1,3181 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>БЕБ — Демонстраційний портал</title>
+
+<style>
+:root{
+    --bg:#03080d;
+    --bg2:#07131d;
+    --panel:#0a1823;
+    --panel2:#0d202d;
+    --line:#1d3d50;
+    --cyan:#20d5ff;
+    --blue:#168bd0;
+    --gold:#d8ad55;
+    --green:#27d394;
+    --red:#ef5350;
+    --purple:#9b7cff;
+    --text:#eaf5fa;
+    --muted:#8ca5b5;
+    --shadow:0 20px 55px rgba(0,0,0,.5);
+}
+
+*{
+    box-sizing:border-box;
+    scrollbar-width:thin;
+    scrollbar-color:#31566b #061018;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    background:
+        radial-gradient(circle at 80% 0%,#123b50 0,#07131e 32%,#02060a 75%);
+    color:var(--text);
+    font-family:"Segoe UI",Arial,sans-serif;
+    overflow-x:hidden;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(3,10,16,.94);
+    backdrop-filter:blur(18px);
+    border-top:3px solid var(--gold);
+    border-bottom:1px solid var(--line);
+    box-shadow:0 8px 35px rgba(0,0,0,.45);
+}
+
+.top{
+    max-width:1450px;
+    margin:auto;
+    padding:13px 22px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.logo{
+    width:62px;
+    height:68px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(145deg,#174d69,#06121b);
+    border:2px solid var(--gold);
+    clip-path:polygon(
+        50% 0,
+        90% 12%,
+        86% 69%,
+        50% 100%,
+        14% 69%,
+        10% 12%
+    );
+    color:white;
+    font-weight:1000;
+    font-size:17px;
+    box-shadow:0 0 25px rgba(32,213,255,.12);
+}
+
+.brand b{
+    display:block;
+    color:white;
+    font-size:18px;
+    letter-spacing:.5px;
+}
+
+.brand span{
+    display:block;
+    margin-top:3px;
+    color:#7892a2;
+    font-size:10px;
+    letter-spacing:1.4px;
+}
+
+.system{
+    margin-left:auto;
+    font-size:11px;
+    color:#8deac8;
+    font-weight:800;
+}
+
+.system-dot{
+    display:inline-block;
+    width:8px;
+    height:8px;
+    background:var(--green);
+    border-radius:50%;
+    margin-right:6px;
+    box-shadow:0 0 14px var(--green);
+}
+
+.nav{
+    border-top:1px solid #112a39;
+}
+
+.nav-inner{
+    max-width:1450px;
+    margin:auto;
+    display:flex;
+    overflow:auto;
+}
+
+.nav button{
+    background:none;
+    border:0;
+    color:#91a9b8;
+    padding:14px 17px;
+    border-bottom:2px solid transparent;
+    font-weight:800;
+    white-space:nowrap;
+    transition:.2s;
+}
+
+.nav button:hover,
+.nav button.active{
+    color:#fff;
+    background:#0b1d2a;
+    border-bottom-color:var(--cyan);
+}
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    background:
+        linear-gradient(
+            120deg,
+            #02070b 0%,
+            #082b40 55%,
+            #075064 100%
+        );
+    border-bottom:1px solid #28576b;
+}
+
+.hero:before{
+    content:"";
+    position:absolute;
+    width:650px;
+    height:650px;
+    right:-180px;
+    top:-280px;
+    border:1px solid rgba(32,213,255,.25);
+    border-radius:50%;
+    box-shadow:
+        0 0 0 75px rgba(32,213,255,.035),
+        0 0 0 150px rgba(216,173,85,.025);
+    animation:radar 14s linear infinite;
+}
+
+.hero:after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:3px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--gold),
+            var(--cyan),
+            transparent
+        );
+    box-shadow:0 0 20px rgba(32,213,255,.6);
+}
+
+.hero-inner{
+    max-width:1450px;
+    margin:auto;
+    padding:100px 22px 110px;
+    position:relative;
+    z-index:2;
+}
+
+.tag{
+    display:inline-block;
+    padding:8px 12px;
+    border:1px solid rgba(32,213,255,.4);
+    background:rgba(32,213,255,.08);
+    color:#92ecff;
+    font-size:11px;
+    letter-spacing:1.6px;
+    font-weight:900;
+}
+
+.hero h1{
+    margin:22px 0 18px;
+    max-width:1000px;
+    font-size:clamp(45px,7vw,85px);
+    line-height:.95;
+    letter-spacing:-3px;
+    text-shadow:0 12px 45px #000;
+}
+
+.hero h1 span{
+    color:var(--cyan);
+}
+
+.hero p{
+    max-width:800px;
+    color:#bfd3df;
+    line-height:1.7;
+    font-size:17px;
+}
+
+.actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:30px;
+}
+
+.btn{
+    padding:13px 19px;
+    border-radius:4px;
+    border:1px solid #38586b;
+    background:#0b1d2a;
+    color:#fff;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 30px #0007;
+}
+
+.btn-gold{
+    color:#071017;
+    border:0;
+    background:linear-gradient(
+        135deg,
+        #e7c778,
+        #a97827
+    );
+}
+
+.btn-cyan{
+    border-color:rgba(32,213,255,.5);
+}
+
+.btn-green{
+    background:#0b2b22;
+    border-color:#26795e;
+}
+
+.container{
+    max-width:1450px;
+    margin:auto;
+    padding:0 22px;
+}
+
+.notice{
+    margin:25px 0;
+    padding:17px 19px;
+    border-left:4px solid var(--gold);
+    border-top:1px solid #463c24;
+    border-bottom:1px solid #463c24;
+    background:linear-gradient(90deg,#14150f,#0a1014);
+    color:#d7e2e8;
+    line-height:1.6;
+}
+
+.notice strong{
+    color:var(--gold);
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    border:1px solid var(--line);
+    background:#081520;
+    box-shadow:var(--shadow);
+    margin-bottom:50px;
+}
+
+.stat{
+    padding:25px;
+    border-right:1px solid var(--line);
+    transition:.2s;
+}
+
+.stat:last-child{
+    border-right:0;
+}
+
+.stat:hover{
+    background:#0d2230;
+}
+
+.stat-number{
+    display:block;
+    font-size:32px;
+    font-weight:1000;
+    color:var(--cyan);
+}
+
+.stat:nth-child(2) .stat-number{
+    color:var(--green);
+}
+
+.stat:nth-child(3) .stat-number{
+    color:var(--gold);
+}
+
+.stat:nth-child(4) .stat-number{
+    color:var(--purple);
+}
+
+.stat:nth-child(5) .stat-number{
+    color:#fff;
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:12px;
+}
+
+section{
+    padding:38px 0;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    border-bottom:1px solid var(--line);
+    padding-bottom:13px;
+    margin-bottom:22px;
+}
+
+.section-title h2{
+    margin:0;
+    font-size:29px;
+    text-transform:uppercase;
+}
+
+.section-title p{
+    margin:0;
+    color:var(--muted);
+    font-size:12px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+}
+
+.card{
+    position:relative;
+    background:
+        linear-gradient(
+            145deg,
+            #0b1c28,
+            #07131c
+        );
+    border:1px solid var(--line);
+    border-top:3px solid var(--cyan);
+    border-radius:5px;
+    padding:22px;
+    box-shadow:var(--shadow);
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    border-color:#3b6377;
+}
+
+.card:nth-child(3n+2){
+    border-top-color:var(--green);
+}
+
+.card:nth-child(3n){
+    border-top-color:var(--gold);
+}
+
+.card h3{
+    color:white;
+    margin:10px 0 8px;
+}
+
+.card p{
+    color:#9cb2bf;
+    line-height:1.6;
+}
+
+.icon{
+    font-size:30px;
+}
+
+.mini{
+    color:var(--cyan);
+    font-size:10px;
+    font-weight:1000;
+    letter-spacing:1.2px;
+}
+
+.search-area{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+.search{
+    flex:1;
+    min-width:250px;
+    background:#06121b;
+    border:1px solid var(--line);
+    color:#fff;
+    padding:14px;
+    border-radius:4px;
+    outline:none;
+}
+
+.search:focus{
+    border-color:var(--cyan);
+    box-shadow:0 0 0 3px rgba(32,213,255,.08);
+}
+
+.filter{
+    background:#06121b;
+    color:#fff;
+    border:1px solid var(--line);
+    padding:13px;
+    border-radius:4px;
+}
+
+.news{
+    display:grid;
+    grid-template-columns:120px 1fr 30px;
+    gap:18px;
+    align-items:center;
+    background:#081722;
+    border:1px solid var(--line);
+    padding:19px;
+    margin-bottom:10px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.news:hover{
+    background:#0c202d;
+    border-color:#31596d;
+    transform:translateX(4px);
+}
+
+.news-date{
+    color:var(--gold);
+    font-weight:900;
+}
+
+.news h3{
+    margin:0 0 5px;
+}
+
+.news p{
+    margin:0;
+    color:var(--muted);
+}
+
+.news-arrow{
+    font-size:25px;
+    color:var(--cyan);
+}
+
+.service{
+    cursor:pointer;
+    min-height:160px;
+}
+
+.service:after{
+    content:"↗";
+    position:absolute;
+    right:17px;
+    bottom:14px;
+    color:var(--cyan);
+    font-size:20px;
+}
+
+.documents .card{
+    border-top-color:var(--purple);
+}
+
+.doc-info{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:14px;
+}
+
+.doc-button{
+    margin-top:15px;
+    background:#0d2636;
+    color:#bceeff;
+    border:1px solid #31586d;
+    padding:9px 12px;
+    border-radius:3px;
+}
+
+.dashboard{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:16px;
+}
+
+.chart,
+.activity{
+    background:#07131d;
+    border:1px solid var(--line);
+    border-radius:5px;
+    padding:22px;
+}
+
+.bars{
+    height:220px;
+    display:flex;
+    align-items:end;
+    gap:12px;
+    margin-top:25px;
+}
+
+.bar{
+    flex:1;
+    min-height:25px;
+    border-radius:3px 3px 0 0;
+    background:linear-gradient(
+        #20d5ff,
+        #12658d
+    );
+    position:relative;
+    animation:grow .9s ease;
+}
+
+.bar span{
+    position:absolute;
+    top:-23px;
+    width:100%;
+    text-align:center;
+    color:#91a9b8;
+    font-size:11px;
+}
+
+.activity-item{
+    padding:14px 0;
+    border-bottom:1px solid #17303e;
+    color:#a9bdc8;
+}
+
+.status-dot{
+    display:inline-block;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--green);
+    margin-right:8px;
+    box-shadow:0 0 9px var(--green);
+}
+
+.tools{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+}
+
+.tool-box{
+    background:#081722;
+    border:1px solid var(--line);
+    padding:22px;
+    border-radius:5px;
+}
+
+.tool-box input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    background:#040c13;
+    color:#fff;
+    border:1px solid #2b4d5f;
+    border-radius:3px;
+    outline:none;
+}
+
+.form-box{
+    background:#081722;
+    border:1px solid var(--line);
+    padding:25px;
+    border-radius:5px;
+    box-shadow:var(--shadow);
+}
+
+.fields{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.field.full{
+    grid-column:1/-1;
+}
+
+.field label{
+    color:#9db4c1;
+    font-size:12px;
+    font-weight:800;
+}
+
+.field input,
+.field textarea,
+.field select{
+    background:#040d14;
+    color:white;
+    border:1px solid #29495a;
+    border-radius:3px;
+    padding:13px;
+    outline:none;
+}
+
+.field textarea{
+    min-height:150px;
+    resize:vertical;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+    border-color:var(--cyan);
+    box-shadow:0 0 0 3px rgba(32,213,255,.08);
+}
+
+.checkbox{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin:15px 0;
+    color:#899fab;
+    font-size:12px;
+}
+
+.result{
+    display:none;
+    margin-top:15px;
+    padding:15px;
+    background:#082218;
+    border-left:3px solid var(--green);
+    color:#baf1dc;
+}
+
+.result.show{
+    display:block;
+}
+
+.faq{
+    background:#081722;
+    border:1px solid var(--line);
+    margin-bottom:9px;
+    border-radius:4px;
+    overflow:hidden;
+}
+
+.faq button{
+    width:100%;
+    padding:17px;
+    text-align:left;
+    background:none;
+    border:0;
+    color:white;
+    font-weight:900;
+}
+
+.faq-answer{
+    display:none;
+    padding:0 17px 18px;
+    color:#91a8b6;
+    line-height:1.7;
+}
+
+.faq.open .faq-answer{
+    display:block;
+}
+
+footer{
+    margin-top:50px;
+    background:#02070b;
+    border-top:1px solid var(--line);
+    padding:40px 0;
+    color:#718896;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:25px;
+}
+
+.footer-title{
+    color:white;
+    font-weight:900;
+    margin-bottom:10px;
+}
+
+.disclaimer{
+    margin-top:18px;
+    padding:14px;
+    border-left:3px solid var(--gold);
+    background:#0b1115;
+    line-height:1.6;
+    font-size:12px;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:3000;
+    background:rgba(0,0,0,.78);
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+}
+
+.modal.open{
+    display:flex;
+}
+
+.modal-box{
+    width:min(720px,100%);
+    max-height:90vh;
+    overflow:auto;
+    background:#091722;
+    border:1px solid #345a6e;
+    border-radius:6px;
+    box-shadow:0 30px 100px #000;
+}
+
+.modal-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px;
+    border-bottom:1px solid var(--line);
+}
+
+.modal-head h3{
+    margin:0;
+}
+
+.close{
+    border:0;
+    background:none;
+    color:#9eb4c3;
+    font-size:28px;
+}
+
+.modal-body{
+    padding:22px;
+    line-height:1.7;
+}
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:5000;
+    max-width:380px;
+    padding:15px 18px;
+    background:#071a27;
+    color:white;
+    border:1px solid #31576b;
+    border-radius:5px;
+    box-shadow:var(--shadow);
+    transform:translateY(30px);
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:none;
+}
+
+.back-top{
+    position:fixed;
+    right:20px;
+    bottom:80px;
+    width:43px;
+    height:43px;
+    border:1px solid #31566b;
+    background:#081923;
+    color:var(--cyan);
+    border-radius:4px;
+    z-index:100;
+    display:none;
+}
+
+.back-top.show{
+    display:block;
+}
+
+.hidden{
+    display:none!important;
+}
+
+@keyframes radar{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes grow{
+    from{
+        height:0;
+    }
+}
+
+@media(max-width:950px){
+
+    .grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .dashboard{
+        grid-template-columns:1fr;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    .top{
+        padding:11px 14px;
+    }
+
+    .system{
+        display:none;
+    }
+
+    .hero-inner{
+        padding:70px 15px 80px;
+    }
+
+    .hero h1{
+        font-size:46px;
+        letter-spacing:-2px;
+    }
+
+    .container{
+        padding:0 14px;
+    }
+
+    .grid,
+    .tools,
+    .fields{
+        grid-template-columns:1fr;
+    }
+
+    .field.full{
+        grid-column:auto;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .news{
+        grid-template-columns:1fr;
+    }
+
+    .section-title{
+        display:block;
+    }
+
+    .section-title p{
+        margin-top:7px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="top">
+
+<div class="logo">
+БЕБ
+</div>
+
+<div class="brand">
+<b>Бюро економічної безпеки</b>
+<span>ДЕМОНСТРАЦІЙНИЙ ІНФОРМАЦІЙНИЙ ПОРТАЛ</span>
+</div>
+
+<div class="system">
+<span class="system-dot"></span>
+СИСТЕМА ОНЛАЙН
+</div>
+
+</div>
+
+<nav class="nav">
+
+<div class="nav-inner">
+
+<button class="active" data-scroll="home">
+Головна
+</button>
+
+<button data-scroll="news">
+Новини
+</button>
+
+<button data-scroll="about">
+Про портал
+</button>
+
+<button data-scroll="services">
+Сервіси
+</button>
+
+<button data-scroll="documents">
+Документи
+</button>
+
+<button data-scroll="analytics">
+Аналітика
+</button>
+
+<button data-scroll="tools">
+Інструменти
+</button>
+
+<button data-scroll="appeal">
+Звернення
+</button>
+
+<button data-scroll="faq">
+FAQ
+</button>
+
+</div>
+
+</nav>
+
+</header>
+
+
+<section class="hero" id="home">
+
+<div class="hero-inner">
+
+<span class="tag">
+ДЕМО-ПОРТАЛ · НЕОФІЦІЙНИЙ ПРОЄКТ
+</span>
+
+<h1>
+ЕКОНОМІЧНА<br>
+<span>БЕЗПЕКА.</span><br>
+ДАНІ. ТЕХНОЛОГІЇ.
+</h1>
+
+<p>
+Сучасний демонстраційний інформаційний портал
+з пошуком, електронними сервісами, документами,
+аналітичними панелями, інструментами та
+інтерактивною системою звернень.
+</p>
+
+<div class="actions">
+
+<button class="btn btn-gold"
+onclick="scrollToSection('appeal')">
+Подати звернення
+</button>
+
+<button class="btn btn-cyan"
+onclick="scrollToSection('services')">
+Переглянути сервіси
+</button>
+
+<button class="btn"
+onclick="focusSearch()">
+Пошук по порталу
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<div class="container">
+
+<div class="notice">
+
+<strong>ВАЖЛИВО:</strong>
+цей сайт є навчальним демонстраційним макетом.
+Він НЕ є офіційним сайтом БЕБ України,
+не представляє державний орган і не є державною
+інформаційною системою.
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+<span class="stat-number">248</span>
+<span class="stat-label">
+демонстраційних документів
+</span>
+</div>
+
+<div class="stat">
+<span class="stat-number">96</span>
+<span class="stat-label">
+аналітичних матеріалів
+</span>
+</div>
+
+<div class="stat">
+<span class="stat-number">14</span>
+<span class="stat-label">
+електронних сервісів
+</span>
+</div>
+
+<div class="stat">
+<span class="stat-number">24/7</span>
+<span class="stat-label">
+режим демонстрації
+</span>
+</div>
+
+<div class="stat">
+<span class="stat-number" id="clock">
+--:--
+</span>
+<span class="stat-label">
+поточний час
+</span>
+</div>
+
+</div>
+
+
+<!-- NEWS -->
+
+<section id="news">
+
+<div class="section-title">
+
+<h2>
+Останні новини
+</h2>
+
+<p>
+Демонстраційна інформаційна стрічка
+</p>
+
+</div>
+
+
+<div class="search-area">
+
+<input
+id="portalSearch"
+class="search"
+placeholder="🔎 Пошук новин, сервісів, документів..."
+>
+
+<select
+id="newsFilter"
+class="filter"
+>
+
+<option value="all">
+Усі матеріали
+</option>
+
+<option value="news">
+Новини
+</option>
+
+<option value="docs">
+Документи
+</option>
+
+<option value="services">
+Сервіси
+</option>
+
+</select>
+
+</div>
+
+
+<div id="newsList">
+
+
+<article
+class="news searchable"
+data-type="news"
+data-search="аналітика економічні ризики фінанси"
+onclick="openNews(
+'Оновлено аналітичний огляд',
+'На демонстраційному порталі опубліковано новий матеріал з прикладами візуалізації економічних показників.'
+)"
+>
+
+<div class="news-date">
+28.09.2026
+</div>
+
+<div>
+
+<h3>
+Оновлено демонстраційний аналітичний огляд
+</h3>
+
+<p>
+Новий матеріал присвячено аналізу умовних економічних показників.
+</p>
+
+</div>
+
+<div class="news-arrow">
+›
+</div>
+
+</article>
+
+
+<article
+class="news searchable"
+data-type="news"
+data-search="електронні сервіси портал"
+onclick="openNews(
+'Розширено набір електронних сервісів',
+'До демонстраційного порталу додано пошук, каталог документів, аналітичну панель та систему звернень.'
+)"
+>
+
+<div class="news-date">
+26.09.2026
+</div>
+
+<div>
+
+<h3>
+Розширено набір електронних сервісів
+</h3>
+
+<p>
+До порталу додано нові інтерактивні можливості.
+</p>
+
+</div>
+
+<div class="news-arrow">
+›
+</div>
+
+</article>
+
+
+<article
+class="news searchable"
+data-type="news"
+data-search="відкриті дані статистика"
+onclick="openNews(
+'Додано розділ відкритих даних',
+'У демонстраційній версії доступний окремий розділ для перегляду умовних наборів даних.'
+)"
+>
+
+<div class="news-date">
+24.09.2026
+</div>
+
+<div>
+
+<h3>
+Додано розділ відкритих даних
+</h3>
+
+<p>
+Зручний перегляд демонстраційної статистики.
+</p>
+
+</div>
+
+<div class="news-arrow">
+›
+</div>
+
+</article>
+
+
+<article
+class="news searchable"
+data-type="news"
+data-search="цифровізація документи"
+onclick="openNews(
+'Оновлено каталог документів',
+'Каталог отримав нову структуру та систему фільтрації.'
+)"
+>
+
+<div class="news-date">
+21.09.2026
+</div>
+
+<div>
+
+<h3>
+Оновлено каталог цифрових документів
+</h3>
+
+<p>
+Додано фільтрацію та швидкий пошук.
+</p>
+
+</div>
+
+<div class="news-arrow">
+›
+</div>
+
+</article>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<div class="section-title">
+
+<h2>
+Про портал
+</h2>
+
+<p>
+Демонстраційна структура
+</p>
+
+</div>
+
+
+<div class="grid">
+
+<div class="card">
+
+<div class="icon">
+◈
+</div>
+
+<div class="mini">
+МОДУЛЬ 01
+</div>
+
+<h3>
+Єдина інформаційна система
+</h3>
+
+<p>
+Умовне об'єднання новин, документів,
+аналітики та електронних сервісів
+в одному інтерфейсі.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">
+▥
+</div>
+
+<div class="mini">
+МОДУЛЬ 02
+</div>
+
+<h3>
+Аналітичний центр
+</h3>
+
+<p>
+Графіки, показники та візуалізація
+умовних даних для демонстрації
+можливостей вебплатформи.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">
+⌁
+</div>
+
+<div class="mini">
+МОДУЛЬ 03
+</div>
+
+<h3>
+Цифрові сервіси
+</h3>
+
+<p>
+Пошук, звернення, перевірка статусу,
+калькулятор, каталог та довідкові
+інструменти.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SERVICES -->
+
+<section id="services">
+
+<div class="section-title">
+
+<h2>
+Електронні сервіси
+</h2>
+
+<p>
+Усі картки інтерактивні
+</p>
+
+</div>
+
+
+<div class="grid">
+
+
+<div
+class="card service searchable"
+data-type="services"
+data-search="пошук інформації"
+onclick="openService(
+'Пошук інформації',
+'Пошук по демонстраційних матеріалах порталу.'
+)"
+>
+
+<div class="icon">⌕</div>
+
+<div class="mini">
+01 · ІНФОРМАЦІЯ
+</div>
+
+<h3>
+Пошук інформації
+</h3>
+
+<p>
+Пошук по новинах, сервісах та
+демонстраційних документах.
+</p>
+
+</div>
+
+
+<div
+class="card service searchable"
+data-type="services"
+data-search="каталог документи"
+onclick="scrollToSection('documents')"
+>
+
+<div class="icon">▤</div>
+
+<div class="mini">
+02 · ДОКУМЕНТИ
+</div>
+
+<h3>
+Каталог документів
+</h3>
+
+<p>
+Перегляд та фільтрація інформаційних матеріалів.
+</p>
+
+</div>
+
+
+<div
+class="card service searchable"
+data-type="services"
+data-search="електронне звернення"
+onclick="scrollToSection('appeal')"
+>
+
+<div class="icon">✉</div>
+
+<div class="mini">
+03 · ЗВЕРНЕННЯ
+</div>
+
+<h3>
+Електронне звернення
+</h3>
+
+<p>
+Інтерактивна форма створення демонстраційного звернення.
+</p>
+
+</div>
+
+
+<div
+class="card service searchable"
+data-type="services"
+data-search="аналітика графік"
+onclick="scrollToSection('analytics')"
+>
+
+<div class="icon">▥</div>
+
+<div class="mini">
+04 · АНАЛІТИКА
+</div>
+
+<h3>
+Аналітична панель
+</h3>
+
+<p>
+Графіки та умовні показники.
+</p>
+
+</div>
+
+
+<div
+class="card service searchable"
+data-type="services"
+data-search="перевірка статус номер"
+onclick="openStatusChecker()"
+>
+
+<div class="icon">✓</div>
+
+<div class="mini">
+05 · СТАТУС
+</div>
+
+<h3>
+Перевірка звернення
+</h3>
+
+<p>
+Перевірте демонстраційний номер звернення.
+</p>
+
+</div>
+
+
+<div
+class="card service searchable"
+data-type="services"
+data-search="калькулятор розрахунок"
+onclick="openCalculator()"
+>
+
+<div class="icon">∑</div>
+
+<div class="mini">
+06 · ІНСТРУМЕНТИ
+</div>
+
+<h3>
+Економічний калькулятор
+</h3>
+
+<p>
+Швидкий розрахунок умовного показника.
+</p>
+
+</div>
+
+
+<div
+class="card service searchable"
+data-type="services"
+data-search="відкриті дані статистика"
+onclick="openData()"
+>
+
+<div class="icon">◫</div>
+
+<div class="mini">
+07 · ДАНІ
+</div>
+
+<h3>
+Відкриті дані
+</h3>
+
+<p>
+Перегляд демонстраційних наборів даних.
+</p>
+
+</div>
+
+
+<div
+class="card service searchable"
+data-type="services"
+data-search="центр допомоги підтримка"
+onclick="scrollToSection('faq')"
+>
+
+<div class="icon">?</div>
+
+<div class="mini">
+08 · ПІДТРИМКА
+</div>
+
+<h3>
+Центр допомоги
+</h3>
+
+<p>
+FAQ та відповіді на поширені питання.
+</p>
+
+</div>
+
+
+<div
+class="card service searchable"
+data-type="services"
+data-search="архів пошук"
+onclick="openArchive()"
+>
+
+<div class="icon">▣</div>
+
+<div class="mini">
+09 · АРХІВ
+</div>
+
+<h3>
+Архів матеріалів
+</h3>
+
+<p>
+Демонстраційний архів старих матеріалів.
+</p>
+
+</div>
+
+
+<div
+class="card service searchable"
+data-type="services"
+data-search="карта регіони"
+onclick="openMap()"
+>
+
+<div class="icon">⌖</div>
+
+<div class="mini">
+10 · РЕГІОНИ
+</div>
+
+<h3>
+Інформаційна карта
+</h3>
+
+<p>
+Інтерактивна демонстраційна карта регіонів.
+</p>
+
+</div>
+
+
+<div
+class="card service searchable"
+data-type="services"
+data-search="календар події"
+onclick="openCalendar()"
+>
+
+<div class="icon">□</div>
+
+<div class="mini">
+11 · КАЛЕНДАР
+</div>
+
+<h3>
+Календар подій
+</h3>
+
+<p>
+Перелік умовних подій порталу.
+</p>
+
+</div>
+
+
+<div
+class="card service searchable"
+data-type="services"
+data-search="сповіщення"
+onclick="openNotifications()"
+>
+
+<div class="icon">!</div>
+
+<div class="mini">
+12 · СИСТЕМА
+</div>
+
+<h3>
+Центр сповіщень
+</h3>
+
+<p>
+Перегляд демонстраційних системних повідомлень.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- DOCUMENTS -->
+
+<section
+id="documents"
+class="documents"
+>
+
+<div class="section-title">
+
+<h2>
+Документи
+</h2>
+
+<p>
+Демонстраційна база
+</p>
+
+</div>
+
+
+<div class="grid">
+
+
+<div class="card searchable"
+data-type="docs"
+data-search="інформаційний звіт pdf"
+>
+
+<div class="mini">
+ДОКУМЕНТ · 001
+</div>
+
+<h3>
+Інформаційний звіт
+</h3>
+
+<p>
+Демонстраційний матеріал про
+структуру економічних показників.
+</p>
+
+<div class="doc-info">
+PDF · 2.4 МБ
+</div>
+
+<button
+class="doc-button"
+onclick="openDocument('Інформаційний звіт')"
+>
+Відкрити
+</button>
+
+</div>
+
+
+<div class="card searchable"
+data-type="docs"
+data-search="аналітичний огляд"
+>
+
+<div class="mini">
+ДОКУМЕНТ · 002
+</div>
+
+<h3>
+Аналітичний огляд
+</h3>
+
+<p>
+Умовний аналіз ризиків та
+економічних тенденцій.
+</p>
+
+<div class="doc-info">
+PDF · 3.1 МБ
+</div>
+
+<button
+class="doc-button"
+onclick="openDocument('Аналітичний огляд')"
+>
+Відкрити
+</button>
+
+</div>
+
+
+<div class="card searchable"
+data-type="docs"
+data-search="методичні матеріали"
+>
+
+<div class="mini">
+ДОКУМЕНТ · 003
+</div>
+
+<h3>
+Методичні матеріали
+</h3>
+
+<p>
+Демонстраційний довідник
+з використання сервісів.
+</p>
+
+<div class="doc-info">
+PDF · 1.8 МБ
+</div>
+
+<button
+class="doc-button"
+onclick="openDocument('Методичні матеріали')"
+>
+Відкрити
+</button>
+
+</div>
+
+
+<div class="card searchable"
+data-type="docs"
+data-search="довідник портал"
+>
+
+<div class="mini">
+ДОКУМЕНТ · 004
+</div>
+
+<h3>
+Довідник користувача
+</h3>
+
+<p>
+Навігація та можливості
+демонстраційного порталу.
+</p>
+
+<div class="doc-info">
+PDF · 4.2 МБ
+</div>
+
+<button
+class="doc-button"
+onclick="openDocument('Довідник користувача')"
+>
+Відкрити
+</button>
+
+</div>
+
+
+<div class="card searchable"
+data-type="docs"
+data-search="регламент система"
+>
+
+<div class="mini">
+ДОКУМЕНТ · 005
+</div>
+
+<h3>
+Регламент системи
+</h3>
+
+<p>
+Умовна схема роботи
+інформаційної платформи.
+</p>
+
+<div class="doc-info">
+PDF · 1.2 МБ
+</div>
+
+<button
+class="doc-button"
+onclick="openDocument('Регламент системи')"
+>
+Відкрити
+</button>
+
+</div>
+
+
+<div class="card searchable"
+data-type="docs"
+data-search="звіт статистика"
+>
+
+<div class="mini">
+ДОКУМЕНТ · 006
+</div>
+
+<h3>
+Статистичний звіт
+</h3>
+
+<p>
+Демонстраційні статистичні
+показники порталу.
+</p>
+
+<div class="doc-info">
+PDF · 2.8 МБ
+</div>
+
+<button
+class="doc-button"
+onclick="openDocument('Статистичний звіт')"
+>
+Відкрити
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ANALYTICS -->
+
+<section id="analytics">
+
+<div class="section-title">
+
+<h2>
+Аналітичний центр
+</h2>
+
+<p>
+Умовні показники
+</p>
+
+</div>
+
+
+<div class="dashboard">
+
+<div class="chart">
+
+<div class="mini">
+АКТИВНІСТЬ ПОРТАЛУ
+</div>
+
+<div class="bars">
+
+<div
+class="bar"
+style="height:43%"
+>
+<span>43</span>
+</div>
+
+<div
+class="bar"
+style="height:58%"
+>
+<span>58</span>
+</div>
+
+<div
+class="bar"
+style="height:49%"
+>
+<span>49</span>
+</div>
+
+<div
+class="bar"
+style="height:72%"
+>
+<span>72</span>
+</div>
+
+<div
+class="bar"
+style="height:66%"
+>
+<span>66</span>
+</div>
+
+<div
+class="bar"
+style="height:91%"
+>
+<span>91</span>
+</div>
+
+<div
+class="bar"
+style="height:83%"
+>
+<span>83</span>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="activity">
+
+<div class="activity-item">
+<span class="status-dot"></span>
+Система працює стабільно
+</div>
+
+<div class="activity-item">
+<span class="status-dot"></span>
+14 сервісів доступні
+</div>
+
+<div class="activity-item">
+<span class="status-dot"></span>
+248 документів у демо-базі
+</div>
+
+<div class="activity-item">
+<span class="status-dot"></span>
+96 аналітичних матеріалів
+</div>
+
+<div class="activity-item">
+<span class="status-dot"></span>
+Пошук працює
+</div>
+
+<div class="activity-item">
+<span class="status-dot"></span>
+Форма звернення працює
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- TOOLS -->
+
+<section id="tools">
+
+<div class="section-title">
+
+<h2>
+Інструменти
+</h2>
+
+<p>
+Інтерактивний модуль
+</p>
+
+</div>
+
+
+<div class="tools">
+
+
+<div class="tool-box">
+
+<div class="mini">
+ПЕРЕВІРКА ЗВЕРНЕННЯ
+</div>
+
+<h3>
+Статус звернення
+</h3>
+
+<input
+id="statusInput"
+placeholder="Наприклад: DEMO-1234567"
+>
+
+<button
+class="btn btn-cyan"
+onclick="checkStatus()"
+>
+Перевірити
+</button>
+
+<div
+id="statusResult"
+style="margin-top:15px;color:#9cb5c2"
+></div>
+
+</div>
+
+
+<div class="tool-box">
+
+<div class="mini">
+КАЛЬКУЛЯТОР
+</div>
+
+<h3>
+Відсотковий розрахунок
+</h3>
+
+<input
+id="calcAmount"
+type="number"
+placeholder="Сума"
+>
+
+<input
+id="calcPercent"
+type="number"
+placeholder="Відсоток"
+>
+
+<button
+class="btn btn-gold"
+onclick="calculate()"
+>
+Розрахувати
+</button>
+
+<div
+id="calcResult"
+style="margin-top:15px;color:#9cb5c2"
+></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- APPEAL -->
+
+<section id="appeal">
+
+<div class="section-title">
+
+<h2>
+Електронне звернення
+</h2>
+
+<p>
+Демонстраційний режим
+</p>
+
+</div>
+
+
+<div class="form-box">
+
+<form id="appealForm">
+
+<div class="fields">
+
+
+<div class="field">
+
+<label>
+Ім'я та прізвище *
+</label>
+
+<input
+required
+id="userName"
+placeholder="Ваше ім'я"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Email *
+</label>
+
+<input
+required
+type="email"
+id="userEmail"
+placeholder="example@email.com"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Категорія
+</label>
+
+<select id="category">
+
+<option>
+Загальне питання
+</option>
+
+<option>
+Інформаційний запит
+</option>
+
+<option>
+Пропозиція
+</option>
+
+<option>
+Скарга
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Тема *
+</label>
+
+<input
+required
+id="subject"
+placeholder="Тема звернення"
+>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+Текст звернення *
+</label>
+
+<textarea
+required
+id="message"
+placeholder="Напишіть текст звернення..."
+></textarea>
+
+</div>
+
+</div>
+
+
+<label class="checkbox">
+
+<input
+required
+type="checkbox"
+>
+
+Погоджуюсь на використання даних
+у межах демонстрації.
+
+</label>
+
+
+<button
+class="btn btn-gold"
+type="submit"
+>
+Створити звернення
+</button>
+
+
+<div
+id="appealResult"
+class="result"
+></div>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- FAQ -->
+
+<section id="faq">
+
+<div class="section-title">
+
+<h2>
+FAQ
+</h2>
+
+<p>
+Центр допомоги
+</p>
+
+</div>
+
+
+<div class="faq">
+
+<button onclick="toggleFaq(this)">
+Це справжній сайт БЕБ?
+</button>
+
+<div class="faq-answer">
+Ні. Це демонстраційний навчальний макет.
+Він не є офіційним ресурсом БЕБ України
+та не представляє державний орган.
+</div>
+
+</div>
+
+
+<div class="faq">
+
+<button onclick="toggleFaq(this)">
+Чи надсилаються звернення реально?
+</button>
+
+<div class="faq-answer">
+Ні. Форма працює тільки в браузері.
+Після натискання кнопки створюється
+демонстраційний номер звернення.
+Реальної передачі державному органу немає.
+</div>
+
+</div>
+
+
+<div class="faq">
+
+<button onclick="toggleFaq(this)">
+Чи справжні документи?
+</button>
+
+<div class="faq-answer">
+Ні. Усі документи на цьому макеті
+є демонстраційними.
+</div>
+
+</div>
+
+
+<div class="faq">
+
+<button onclick="toggleFaq(this)">
+Чи працює пошук?
+</button>
+
+<div class="faq-answer">
+Так. Пошук фільтрує новини, сервіси
+та документи без перезавантаження сторінки.
+</div>
+
+</div>
+
+
+<div class="faq">
+
+<button onclick="toggleFaq(this)">
+Які гарячі клавіші є?
+</button>
+
+<div class="faq-answer">
+Ctrl + K — швидко відкрити пошук.
+Esc — закрити відкрите модальне вікно.
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+
+<footer>
+
+<div class="container">
+
+<div class="footer-grid">
+
+
+<div>
+
+<div class="footer-title">
+БЕБ · DEMO PORTAL
+</div>
+
+<div>
+Навчальний вебпроєкт з розширеним
+набором інтерактивних можливостей.
+</div>
+
+<div class="disclaimer">
+
+<strong>УВАГА:</strong>
+
+цей сайт не має відношення до справжнього
+Бюро економічної безпеки України,
+спеціальних служб або інших державних органів.
+
+Усі новини, документи, цифри,
+контакти та результати роботи системи
+є демонстраційними.
+
+</div>
+
+</div>
+
+
+<div>
+
+<div class="footer-title">
+Навігація
+</div>
+
+<div>
+Головна
+</div>
+
+<div>
+Новини
+</div>
+
+<div>
+Сервіси
+</div>
+
+<div>
+Документи
+</div>
+
+<div>
+Аналітика
+</div>
+
+</div>
+
+
+<div>
+
+<div class="footer-title">
+Контакти
+</div>
+
+<div>
+Email:
+<br>
+<span style="color:var(--gold)">
+ssu03server@gmail.com
+</span>
+</div>
+
+<div style="margin-top:10px">
+Телефон:
+<br>
+<span style="color:#7f95a3">
+ЗАСЕКРЕЧЕНО
+</span>
+</div>
+
+<div style="margin-top:10px">
+Адреса:
+<br>
+<span style="color:#7f95a3">
+ЗАСЕКРЕЧЕНО
+</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</footer>
+
+
+<button
+class="back-top"
+id="backTop"
+onclick="window.scrollTo({top:0,behavior:'smooth'})"
+>
+↑
+</button>
+
+
+<div
+class="toast"
+id="toast"
+></div>
+
+
+<!-- MODAL -->
+
+<div
+class="modal"
+id="modal"
+onclick="closeOutside(event)"
+>
+
+<div class="modal-box">
+
+<div class="modal-head">
+
+<h3 id="modalTitle">
+Інформація
+</h3>
+
+<button
+class="close"
+onclick="closeModal()"
+>
+×
+</button>
+
+</div>
+
+<div
+class="modal-body"
+id="modalBody"
+>
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+const toastBox=document.getElementById("toast");
+
+function toast(message){
+
+    toastBox.textContent=message;
+
+    toastBox.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer=setTimeout(()=>{
+        toastBox.classList.remove("show");
+    },3000);
+
+}
+
+
+function scrollToSection(id){
+
+    const element=document.getElementById(id);
+
+    if(element){
+
+        element.scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+        });
+
+    }
+
+}
+
+
+function focusSearch(){
+
+    scrollToSection("news");
+
+    setTimeout(()=>{
+
+        document.getElementById("portalSearch").focus();
+
+    },600);
+
+}
+
+
+function openModal(title,content){
+
+    document.getElementById("modalTitle").textContent=title;
+
+    document.getElementById("modalBody").innerHTML=content;
+
+    document.getElementById("modal").classList.add("open");
+
+}
+
+
+function closeModal(){
+
+    document.getElementById("modal").classList.remove("open");
+
+}
+
+
+function closeOutside(event){
+
+    if(event.target.id==="modal"){
+
+        closeModal();
+
+    }
+
+}
+
+
+function openNews(title,text){
+
+    openModal(
+        title,
+        `
+        <p style="color:#9db4c1">
+        ${text}
+        </p>
+
+        <div style="
+            margin-top:20px;
+            padding:15px;
+            background:#07141d;
+            border-left:3px solid #20d5ff;
+            color:#9eb4c1;
+        ">
+        Демонстраційний матеріал.
+        Реальних державних даних тут немає.
+        </div>
+        `
+    );
+
+}
+
+
+function openService(title,text){
+
+    openModal(
+        title,
+        `
+        <p style="color:#a6bac5">
+        ${text}
+        </p>
+
+        <button
+        class="btn btn-gold"
+        onclick="closeModal()"
+        >
+        Закрити
+        </button>
+        `
+    );
+
+}
+
+
+function openDocument(name){
+
+    openModal(
+        name,
+        `
+        <div style="
+            padding:25px;
+            text-align:center;
+            background:#06121b;
+            border:1px solid #1d3d50;
+        ">
+
+        <div style="
+            font-size:55px;
+            color:#9b7cff;
+        ">
+        ▤
+        </div>
+
+        <h3>
+        ${name}
+        </h3>
+
+        <p style="color:#91a8b6">
+        Демонстраційний документ.
+        Реального офіційного документа
+        або державного завантаження немає.
+        </p>
+
+        <button
+        class="btn btn-cyan"
+        onclick="toast('Демонстраційний документ відкрито');closeModal()"
+        >
+        Переглянути
+        </button>
+
+        </div>
+        `
+    );
+
+}
+
+
+function openStatusChecker(){
+
+    scrollToSection("tools");
+
+    setTimeout(()=>{
+
+        document.getElementById("statusInput").focus();
+
+    },500);
+
+}
+
+
+function checkStatus(){
+
+    const value=document
+        .getElementById("statusInput")
+        .value
+        .trim();
+
+    const result=document
+        .getElementById("statusResult");
+
+    if(!value){
+
+        result.textContent=
+        "Введіть номер звернення.";
+
+        return;
+
+    }
+
+    result.innerHTML=`
+
+    <strong style="color:#27d394">
+    ✓ ЗНАЙДЕНО
+    </strong>
+
+    <br><br>
+
+    Номер:
+    <strong>${value}</strong>
+
+    <br>
+
+    Статус:
+    <strong style="color:#20d5ff">
+    На демонстраційному розгляді
+    </strong>
+
+    <br>
+
+    Оновлено:
+    щойно
+
+    `;
+
+    toast("Статус демонстраційного звернення знайдено");
+
+}
+
+
+function openCalculator(){
+
+    scrollToSection("tools");
+
+    setTimeout(()=>{
+
+        document.getElementById("calcAmount").focus();
+
+    },500);
+
+}
+
+
+function calculate(){
+
+    const amount=parseFloat(
+        document.getElementById("calcAmount").value
+    );
+
+    const percent=parseFloat(
+        document.getElementById("calcPercent").value
+    );
+
+    const result=document.getElementById("calcResult");
+
+    if(isNaN(amount)||isNaN(percent)){
+
+        result.textContent=
+        "Введіть суму та відсоток.";
+
+        return;
+
+    }
+
+    const value=amount*percent/100;
+
+    result.innerHTML=`
+
+    Результат:
+    <strong style="color:#20d5ff">
+    ${value.toFixed(2)}
+    </strong>
+
+    `;
+
+    toast("Розрахунок виконано");
+
+}
+
+
+function openData(){
+
+    openModal(
+        "Відкриті дані",
+        `
+        <h3>Демонстраційний набір даних</h3>
+
+        <p style="color:#9db4c1">
+        Умовні показники:
+        </p>
+
+        <ul style="color:#9db4c1;line-height:2">
+            <li>Активність — 82%</li>
+            <li>Документи — 248</li>
+            <li>Аналітика — 96</li>
+            <li>Сервіси — 14</li>
+            <li>Звернення — 37</li>
+        </ul>
+        `
+    );
+
+}
+
+
+function openArchive(){
+
+    openModal(
+        "Архів матеріалів",
+        `
+        <p style="color:#9db4c1">
+        Архів містить демонстраційні матеріали
+        за попередні періоди.
+        </p>
+
+        <button
+        class="btn btn-cyan"
+        onclick="toast('Архів відкрито');closeModal()"
+        >
+        Відкрити архів
+        </button>
+        `
+    );
+
+}
+
+
+function openMap(){
+
+    openModal(
+        "Інформаційна карта",
+        `
+        <div style="
+            height:280px;
+            display:grid;
+            place-items:center;
+            background:
+            radial-gradient(
+                circle,
+                #12384c,
+                #06121b
+            );
+            border:1px solid #21465a;
+        ">
+
+        <div style="
+            text-align:center;
+            color:#20d5ff;
+            font-size:22px;
+        ">
+
+        ◉
+
+        <br>
+
+        ДЕМОНСТРАЦІЙНА КАРТА
+
+        <div style="
+            font-size:12px;
+            color:#8ca5b5;
+            margin-top:10px;
+        ">
+        Географічні дані умовні
+        </div>
+
+        </div>
+
+        </div>
+        `
+    );
+
+}
+
+
+function openCalendar(){
+
+    openModal(
+        "Календар подій",
+        `
+        <div style="display:grid;gap:10px">
+
+        <div style="padding:15px;background:#07151f;border:1px solid #1d3d50">
+        <strong>30.09</strong>
+        <br>
+        Демонстраційне оновлення порталу
+        </div>
+
+        <div style="padding:15px;background:#07151f;border:1px solid #1d3d50">
+        <strong>02.10</strong>
+        <br>
+        Оновлення аналітичного модуля
+        </div>
+
+        <div style="padding:15px;background:#07151f;border:1px solid #1d3d50">
+        <strong>05.10</strong>
+        <br>
+        Тестування електронних сервісів
+        </div>
+
+        </div>
+        `
+    );
+
+}
+
+
+function openNotifications(){
+
+    openModal(
+        "Центр сповіщень",
+        `
+        <div style="color:#9db4c1">
+
+        <p>
+        ✓ Система працює стабільно
+        </p>
+
+        <p>
+        ✓ Пошук активний
+        </p>
+
+        <p>
+        ✓ Форма звернення активна
+        </p>
+
+        <p>
+        ✓ Аналітичний модуль активний
+        </p>
+
+        </div>
+        `
+    );
+
+}
+
+
+function toggleFaq(button){
+
+    button.parentElement.classList.toggle("open");
+
+}
+
+
+document
+.getElementById("portalSearch")
+.addEventListener("input",filterContent);
+
+
+document
+.getElementById("newsFilter")
+.addEventListener("change",filterContent);
+
+
+function filterContent(){
+
+    const query=document
+        .getElementById("portalSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const type=document
+        .getElementById("newsFilter")
+        .value;
+
+    document
+    .querySelectorAll(".searchable")
+    .forEach(item=>{
+
+        const text=(
+            item.dataset.search||
+            item.innerText||
+            ""
+        ).toLowerCase();
+
+        const itemType=item.dataset.type;
+
+        const textMatch=
+            !query||
+            text.includes(query);
+
+        const typeMatch=
+            type==="all"||
+            itemType===type;
+
+        item.classList.toggle(
+            "hidden",
+            !(textMatch&&typeMatch)
+        );
+
+    });
+
+}
+
+
+document
+.getElementById("appealForm")
+.addEventListener(
+"submit",
+function(event){
+
+    event.preventDefault();
+
+    const number=
+        "DEMO-"+
+        Math.floor(
+            1000000+
+            Math.random()*8999999
+        );
+
+    const result=
+        document.getElementById(
+            "appealResult"
+        );
+
+    result.innerHTML=`
+
+    <strong>
+    ✓ Звернення створено
+    </strong>
+
+    <br><br>
+
+    Демонстраційний номер:
+
+    <strong>
+    ${number}
+    </strong>
+
+    <br><br>
+
+    Статус:
+    <span style="color:#20d5ff">
+    прийнято в демонстраційну систему
+    </span>
+
+    <br><br>
+
+    Реальної передачі державному органу
+    не виконано.
+
+    `;
+
+    result.classList.add("show");
+
+    localStorage.setItem(
+        "lastDemoAppeal",
+        number
+    );
+
+    toast(
+        "Демонстраційне звернення створено"
+    );
+
+    this.reset();
+
+});
+
+
+document.addEventListener(
+"keydown",
+function(event){
+
+    if(event.key==="Escape"){
+
+        closeModal();
+
+    }
+
+    if(
+        event.ctrlKey &&
+        event.key.toLowerCase()==="k"
+    ){
+
+        event.preventDefault();
+
+        focusSearch();
+
+    }
+
+});
+
+
+window.addEventListener(
+"scroll",
+function(){
+
+    const button=
+        document.getElementById("backTop");
+
+    if(window.scrollY>500){
+
+        button.classList.add("show");
+
+    }else{
+
+        button.classList.remove("show");
+
+    }
+
+});
+
+
+const navButtons=
+document.querySelectorAll(
+".nav button"
+);
+
+navButtons.forEach(button=>{
+
+    button.addEventListener(
+        "click",
+        function(){
+
+            navButtons.forEach(
+                x=>x.classList.remove("active")
+            );
+
+            this.classList.add("active");
+
+        }
+    );
+
+});
+
+
+function updateClock(){
+
+    const now=new Date();
+
+    const time=
+        String(now.getHours()).padStart(2,"0")
+        +":"+
+        String(now.getMinutes()).padStart(2,"0")
+        +":"+
+        String(now.getSeconds()).padStart(2,"0");
+
+    document
+    .getElementById("clock")
+    .textContent=time;
+
+}
+
+updateClock();
+
+setInterval(
+    updateClock,
+    1000
+);
+
+
+</script>
+
+</body>
+</html>
